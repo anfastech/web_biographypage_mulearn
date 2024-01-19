@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    .w-w {
+      width: 50% !important;
+      align-self: flex-start;
+    }
+    .cardHov {
+      transition: box-shadow 0.3s ease; /* Adding a smooth transition for the hover effect */
+    }
+
+    .cardHov:hover {
+      box-shadow: -6px 9px #0000ff; /* Blue shadow on hover */
+      outline: solid 2px #0000ff;
+    }
+  </style>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <button
+              class="btn btn-outline-success"
+              type="button"
+              id="signoutbtn"
+            >
+              Sign Out
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <h2 id="msg"></h2>
+    <h2 id="greet"></h2>
+    <div class="d-flex m-2">
+      <div class="container mt-5 rounded border m-1">
+        <div class="scrollable-div overflow-y-auto">
+          <!-- Post Container -->
+          <div class="post-container p-4" id="postContainer">
+            <!-- JavaScript will dynamically load posts here -->
+          </div>
+        </div>
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example" class="mt-4">
+          <ul class="pagination justify-content-center" id="pagination">
+            <!-- Pagination links will be added here dynamically with JavaScript -->
+          </ul>
+        </nav>
+      </div>
+      <div class="container mt-5 rounded border w-w m-1 card row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+        <a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+          Custom focus ring
+        </a>
+        <a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+          Custom focus ring
+        </a>
+        <a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+          Custom focus ring
+        </a>
+        <a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+          Custom focus ring
+        </a>
+        <a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+          Custom focus ring
+        </a>
+        <a href="#" class="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+          Custom focus ring
+        </a>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+      let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+
+      let msgHead = document.getElementById("msg");
+      let greetHead = document.getElementById("greet");
+      let signOutBtn = document.getElementById("signoutbtn");
+
+      let Signout = () => {
+        sessionStorage.removeItem("user-creds");
+        sessionStorage.removeItem("user-info");
+        window.location.href = "login.html";
+      };
+
+      let CheckCred = () => {
+        if (!sessionStorage.getItem("user-creds")) {
+          window.location.href = "login.html";
+        } else {
+          msgHead.innerText = `user with email "${UserCreds.email}" logged in`;
+          greetHead.innerText = `welcome "${
+            UserInfo.firstname + " " + UserInfo.lastname
+          }" !`;
+        }
+      };
+
+      window.addEventListener("load", CheckCred);
+      signOutBtn.addEventListener("click", Signout);
+    </script>
+    <script>
+      // Simulated data (you can replace this with actual data from a server)
+      const postsData = Array.from({ length: 10 }, (_, index) => ({
+        image: "https://avatars.githubusercontent.com/u/109226874?s=24",
+        title: `Post Title ${index + 1}`,
+        content: `Dummy Text Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis distinctio sit ex consequatur quasi, reiciendis qui error sunt magni consectetur eligendi, minus quibusdam? This is the post content for Post ${index + 1}.`,
+      }));
+
+      let currentPage = 1;
+
+      // Function to display posts based on the selected page
+
+      function displayPosts(page) {
+        const postsContainer = document.getElementById("postContainer");
+        postsContainer.innerHTML = "";
+
+        const startIndex = (page - 1) * 3;
+        const endIndex = startIndex + 3;
+
+        for (let i = startIndex; i < endIndex && i < postsData.length; i++) {
+          const post = postsData[i];
+          const postElement = document.createElement("div");
+          postElement.className = "card cardHov mb-3";
+          postElement.innerHTML = `
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${post.image}" alt="${
+            post.title
+          }" class="img-fluid rounded-start">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${post.title}</h5>
+            <p class="card-text">${post.content.substring(0, 120)}</p>
+            <a href="#" class="btn btn-primary">Read more</a>
+            <p class="card-text"><small class="text-muted">${post.date} | ${
+            post.department
+          }</small></p>
+          </div>
+        </div>
+      </div>`;
+          postsContainer.appendChild(postElement);
+        }
+
+        currentPage = page;
+        generatePaginationLinks();
+      }
+
+      // Function to generate pagination links
+      function generatePaginationLinks() {
+        const paginationContainer = document.getElementById("pagination");
+        paginationContainer.innerHTML = "";
+
+        // "Previous" button
+        const previousPageItem = document.createElement("li");
+        previousPageItem.className = "page-item";
+        const previousPageLink = document.createElement("a");
+        previousPageLink.className = "page-link";
+        previousPageLink.href = "#";
+        previousPageLink.innerText = "Previous";
+        previousPageLink.addEventListener("click", () => {
+          if (currentPage > 1) {
+            displayPosts(currentPage - 1);
+          }
+        });
+        previousPageItem.appendChild(previousPageLink);
+        paginationContainer.appendChild(previousPageItem);
+
+        // Page links
+        for (let i = 1; i <= Math.ceil(postsData.length / 3); i++) {
+          const pageItem = document.createElement("li");
+          pageItem.className = "page-item";
+          const pageLink = document.createElement("a");
+          pageLink.className = "page-link";
+          pageLink.href = "#";
+          pageLink.innerText = i;
+          pageLink.addEventListener("click", () => {
+            displayPosts(i);
+          });
+          pageItem.appendChild(pageLink);
+          paginationContainer.appendChild(pageItem);
+        }
+
+        // "Next" button
+        const nextPageItem = document.createElement("li");
+        nextPageItem.className = "page-item";
+        const nextPageLink = document.createElement("a");
+        nextPageLink.className = "page-link";
+        nextPageLink.href = "#";
+        nextPageLink.innerText = "Next";
+        nextPageLink.addEventListener("click", () => {
+          if (currentPage < Math.ceil(postsData.length / 3)) {
+            displayPosts(currentPage + 1);
+          }
+        });
+        nextPageItem.appendChild(nextPageLink);
+        paginationContainer.appendChild(nextPageItem);
+
+        // Disable "Previous" button if on the first page
+        if (currentPage === 1) {
+          previousPageItem.classList.add("disabled");
+        }
+
+        // Disable "Next" button if on the last page
+        if (currentPage === Math.ceil(postsData.length / 3)) {
+          nextPageItem.classList.add("disabled");
+        }
+      }
+
+      // Initial display on page load
+      displayPosts(1);
+    </script>
+  </body>
+</html>
