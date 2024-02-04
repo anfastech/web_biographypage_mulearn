@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to [Project Name], a web application that leverages Firebase Authentication to protect user data and content. This project ensures a seamless authentication experience, allowing users to securely log in and access their personalized features.
+About Silver_auth, simple web application that leverages Firebase Authentication to protect user data and content. This project ensures a seamless authentication experience, allowing users to securely log in and access their personalized features.
 
 ## Key Features
 
