@@ -30,7 +30,8 @@ h1{
 }
 /*#FE7458;*/
 body{
-    background-color:#afb4f1;
+/*     background-color:#afb4f1; */
+    background-color: red;
     margin: 10% auto;
 }
 
